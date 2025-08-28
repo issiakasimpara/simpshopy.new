@@ -1,0 +1,24 @@
+name: Update Currency Rates
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Tous les jours à 6h00 UTC
+  workflow_dispatch:  # Permet l'exécution manuelle
+
+jobs:
+  update-rates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Supabase Edge Function
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Content-Type: application/json" \
+            https://grutldacuowplosarucp.supabase.co/functions/v1/update-currency-rates
+        env:
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+      
+      - name: Log success
+        run: |
+          echo "✅ Currency rates update completed at $(date)"
+          echo "Next update scheduled for tomorrow at 6:00 UTC"

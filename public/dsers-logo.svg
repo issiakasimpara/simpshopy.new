@@ -1,0 +1,16 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fond orange arrondi -->
+  <rect width="24" height="24" rx="4" fill="#FF6B35"/>
+  
+  <!-- Texte "DSers" stylisé -->
+  <text x="12" y="16" font-family="Arial, sans-serif" font-size="8" font-weight="bold" text-anchor="middle" fill="white" letter-spacing="0.3">
+    DSers
+  </text>
+  
+  <!-- Stylisation spéciale pour le 'e' - barre horizontale détachée -->
+  <path d="M9 12.5 L10.5 12.5" stroke="white" stroke-width="1" stroke-linecap="round"/>
+  
+  <!-- Stylisation pour les 'S' - courbées -->
+  <path d="M6.5 10 Q8 9 9.5 10 Q8 11 6.5 12" stroke="white" stroke-width="1" stroke-linecap="round" fill="none"/>
+  <path d="M14.5 10 Q16 9 17.5 10 Q16 11 14.5 12" stroke="white" stroke-width="1" stroke-linecap="round" fill="none"/>
+</svg>

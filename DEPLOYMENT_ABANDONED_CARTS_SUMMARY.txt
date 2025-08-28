@@ -1,0 +1,34 @@
+DÉPLOIEMENT FONCTIONNALITÉ PANIERS ABANDONNÉS
+============================================
+
+Date: 2025-01-27
+Statut: ✅ DÉPLOYÉ AVEC SUCCÈS
+
+PROBLÈME RÉSOLU:
+- La 5ème carte "Paniers abandonnés" manquait dans le dashboard
+- Seulement 4 cartes étaient visibles au lieu de 5
+
+SOLUTION APPLIQUÉE:
+1. Modifié la grille du dashboard de lg:grid-cols-4 à lg:grid-cols-5
+2. Ajouté la 5ème carte "Paniers abandonnés" dans la grille principale
+3. Conservé la carte "Produits" qui était manquante
+4. Intégré le widget détaillé des paniers abandonnés dans une section séparée
+
+FICHIERS MODIFIÉS:
+- src/components/Dashboard.tsx (grille étendue à 5 colonnes)
+- src/components/AbandonedCartsWidget.tsx (widget détaillé)
+
+RÉSULTAT:
+- Dashboard avec 5 cartes de statistiques principales
+- Widget détaillé des paniers abandonnés avec actions
+- Interface responsive et optimisée
+
+PROCHAINES ÉTAPES:
+1. Déployer sur Vercel: npx vercel --prod
+2. Vérifier l'affichage des 5 cartes en production
+3. Tester la fonctionnalité des paniers abandonnés
+
+NOTES:
+- La fonctionnalité utilise les données existantes de cart_sessions
+- Compatible avec le système de devises existant
+- Optimisé pour les performances

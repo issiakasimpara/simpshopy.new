@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Routage Boutiques - Simpshopy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .warning {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Routage Boutiques - Simpshopy</h1>
+    
+    <div class="test-section">
+        <h2>📍 URLs Correctes</h2>
+        <p><strong>Boutiques publiques DOIVENT être sur :</strong></p>
+        <ul>
+            <li><span class="success">✅ simpshopy.com/store/maman</span></li>
+            <li><span class="success">✅ simpshopy.com/store/techshop</span></li>
+            <li><span class="success">✅ simpshopy.com/store/[nom-boutique]</span></li>
+        </ul>
+        
+        <p><strong>Administration DOIT être sur :</strong></p>
+        <ul>
+            <li><span class="success">✅ admin.simpshopy.com/auth</span></li>
+            <li><span class="success">✅ admin.simpshopy.com/dashboard</span></li>
+            <li><span class="success">✅ admin.simpshopy.com/products</span></li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>❌ URLs Incorrectes</h2>
+        <p><strong>NE JAMAIS utiliser :</strong></p>
+        <ul>
+            <li><span class="error">❌ admin.simpshopy.com/store/maman</span></li>
+            <li><span class="error">❌ admin.simpshopy.com/store/[nom-boutique]</span></li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>🔗 Tests de Navigation</h2>
+        <p><strong>Testez ces liens :</strong></p>
+        
+        <h3>Boutiques Publiques (simpshopy.com)</h3>
+        <a href="http://localhost:8080/store/maman" class="test-button" target="_blank">
+            Test: localhost:8080/store/maman
+        </a>
+        <a href="http://localhost:8080/store/techshop" class="test-button" target="_blank">
+            Test: localhost:8080/store/techshop
+        </a>
+        
+        <h3>Administration (localhost:8080)</h3>
+        <a href="http://localhost:8080/auth" class="test-button" target="_blank">
+            Test: localhost:8080/auth
+        </a>
+        <a href="http://localhost:8080/dashboard" class="test-button" target="_blank">
+            Test: localhost:8080/dashboard
+        </a>
+    </div>
+
+    <div class="test-section">
+        <h2>🚨 Problème Identifié</h2>
+        <p class="error">Vous accédez à : admin.simpshopy.com/store/maman</p>
+        <p class="warning">Vous devriez accéder à : simpshopy.com/store/maman</p>
+        
+        <h3>Solution :</h3>
+        <ol>
+            <li>Allez sur <strong>simpshopy.com/store/maman</strong> (pas admin.simpshopy.com)</li>
+            <li>Ou en développement : <strong>localhost:8080/store/maman</strong></li>
+            <li>L'administration reste sur <strong>admin.simpshopy.com</strong> ou <strong>localhost:8080</strong></li>
+        </ol>
+    </div>
+
+    <div class="test-section">
+        <h2>🔧 Correction Appliquée</h2>
+        <ul>
+            <li>✅ Route corrigée : <code>/store/:storeSlug</code> au lieu de <code>/store/:storeId</code></li>
+            <li>✅ Composant <code>PublicStoreRouter</code> supprimé (causait des conflits)</li>
+            <li>✅ Utilisation du composant <code>Storefront</code> existant</li>
+            <li>✅ <code>DomainRouter</code> exclut correctement le sous-domaine "admin"</li>
+        </ul>
+    </div>
+
+    <script>
+        // Détection automatique du domaine actuel
+        const currentDomain = window.location.hostname;
+        const currentPath = window.location.pathname;
+        
+        console.log('🌐 Domaine actuel:', currentDomain);
+        console.log('📍 Chemin actuel:', currentPath);
+        
+        if (currentDomain.includes('admin') && currentPath.includes('/store/')) {
+            alert('❌ ERREUR : Vous êtes sur admin.simpshopy.com avec une route de boutique !\n\nAllez sur simpshopy.com/store/[nom] au lieu de admin.simpshopy.com/store/[nom]');
+        }
+    </script>
+</body>
+</html>

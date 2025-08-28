@@ -1,0 +1,27 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cercle jaune de fond -->
+  <circle cx="100" cy="100" r="90" fill="#FFE01B" stroke="#000" stroke-width="3"/>
+  
+  <!-- Tête du singe -->
+  <circle cx="100" cy="90" r="40" fill="#000"/>
+  
+  <!-- Visage du singe -->
+  <circle cx="100" cy="90" r="32" fill="#FFE01B"/>
+  
+  <!-- Yeux -->
+  <circle cx="85" cy="80" r="5" fill="#000"/>
+  <circle cx="115" cy="80" r="5" fill="#000"/>
+  
+  <!-- Clin d'œil -->
+  <path d="M115 80 Q120 75 115 70" stroke="#000" stroke-width="3" fill="none"/>
+  
+  <!-- Sourire -->
+  <path d="M80 100 Q100 115 120 100" stroke="#000" stroke-width="3" fill="none"/>
+  
+  <!-- Casquette -->
+  <ellipse cx="100" cy="55" rx="30" ry="12" fill="#000"/>
+  <rect x="70" y="55" width="60" height="6" fill="#000"/>
+  
+  <!-- Texte Mailchimp -->
+  <text x="100" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#000">mailchimp</text>
+</svg>

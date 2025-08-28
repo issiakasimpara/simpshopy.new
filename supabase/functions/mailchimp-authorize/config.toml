@@ -1,0 +1,2 @@
+[functions.mailchimp-authorize]
+verify_jwt = false
