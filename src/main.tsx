@@ -61,9 +61,11 @@ if (import.meta.env.DEV && Math.random() < 0.1) {
     const stopPerformanceReporting = performanceManager.startPeriodicReporting(300000); // 5 minutes au lieu de 2
     
     // Nettoyer au démontage
-    window.addEventListener('beforeunload', () => {
-      stopPerformanceReporting();
-    });
+    if (typeof window !== 'undefined') {
+      window.addEventListener('beforeunload', () => {
+        stopPerformanceReporting();
+      });
+    }
   } catch (error) {
     // Log silencieux en production
   }
@@ -76,7 +78,9 @@ errorRecoveryManager.registerRecoveryAction('Products_fetch_products_Error', {
   type: 'retry',
   action: async () => {
     // Retenter le chargement des produits
-    window.dispatchEvent(new CustomEvent('retry-fetch-products'));
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('retry-fetch-products'));
+    }
   },
   maxAttempts: 3,
   delay: 2000
@@ -86,7 +90,9 @@ errorRecoveryManager.registerRecoveryAction('Products_create_product_Error', {
   type: 'retry',
   action: async () => {
     // Retenter la création de produit
-    window.dispatchEvent(new CustomEvent('retry-create-product'));
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('retry-create-product'));
+    }
   },
   maxAttempts: 2,
   delay: 1000
@@ -96,11 +102,13 @@ errorRecoveryManager.registerRecoveryAction('Auth_signIn_Error', {
   type: 'redirect',
   action: async () => {
     // Rediriger vers la page de connexion sur admin.simpshopy.com
-    const currentHostname = window.location.hostname;
-    if (currentHostname === 'admin.simpshopy.com') {
-      window.location.href = '/auth';
-    } else {
-      window.location.href = 'https://admin.simpshopy.com/auth';
+    if (typeof window !== 'undefined') {
+      const currentHostname = window.location.hostname;
+      if (currentHostname === 'admin.simpshopy.com') {
+        window.location.href = '/auth';
+      } else {
+        window.location.href = 'https://admin.simpshopy.com/auth';
+      }
     }
   },
   maxAttempts: 1,

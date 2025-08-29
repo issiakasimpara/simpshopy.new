@@ -173,9 +173,9 @@ export default defineConfig(({ mode }) => ({
     minify: 'terser',
     terserOptions: {
       compress: {
-        drop_console: mode === 'production', // Supprimer console.log en production
+        drop_console: false, // 🚨 GARDER LES CONSOLE.LOG POUR DÉBOGUER SUR VERCEL
         drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug'], // Supprimer les fonctions pures
+        pure_funcs: [], // 🚨 NE PAS SUPPRIMER LES FONCTIONS PURES
         passes: 2, // Passes multiples pour une meilleure compression
       },
       mangle: {

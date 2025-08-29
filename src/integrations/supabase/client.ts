@@ -6,16 +6,18 @@ import type { Database } from './types';
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-// ✅ Validation des variables d'environnement
+// ✅ Validation des variables d'environnement (plus souple pour Vercel)
 if (!SUPABASE_URL) {
-  throw new Error('🚨 ERREUR: VITE_SUPABASE_URL manquante dans les variables d\'environnement');
+  console.error('🚨 ERREUR: VITE_SUPABASE_URL manquante dans les variables d\'environnement');
+  // Ne pas faire planter l'app, juste logger l'erreur
 }
 
 if (!SUPABASE_ANON_KEY) {
-  throw new Error('🚨 ERREUR: VITE_SUPABASE_ANON_KEY manquante dans les variables d\'environnement');
+  console.error('🚨 ERREUR: VITE_SUPABASE_ANON_KEY manquante dans les variables d\'environnement');
+  // Ne pas faire planter l'app, juste logger l'erreur
 }
 
-// 🔐 Validation stricte du format des URLs
+// 🔐 Validation souple du format des URLs
 const isValidSupabaseUrl = (url: string): boolean => {
   try {
     const urlObj = new URL(url);
@@ -27,38 +29,42 @@ const isValidSupabaseUrl = (url: string): boolean => {
   }
 };
 
-if (!isValidSupabaseUrl(SUPABASE_URL)) {
-  throw new Error(`🚨 ERREUR: Format SUPABASE_URL invalide: ${SUPABASE_URL}`);
+// Validation souple - ne pas faire planter l'app
+if (SUPABASE_URL && !isValidSupabaseUrl(SUPABASE_URL)) {
+  console.error(`🚨 ERREUR: Format SUPABASE_URL invalide: ${SUPABASE_URL}`);
 }
 
-// 🔐 Validation stricte du format de la clé JWT
+// 🔐 Validation souple du format de la clé JWT
 const isValidJwtKey = (key: string): boolean => {
   return key.startsWith('eyJ') && 
          key.length > 100 && 
          key.split('.').length === 3;
 };
 
-if (!isValidJwtKey(SUPABASE_ANON_KEY)) {
-  throw new Error('🚨 ERREUR: Format SUPABASE_ANON_KEY invalide (doit être une clé JWT valide)');
+// Validation souple - ne pas faire planter l'app
+if (SUPABASE_ANON_KEY && !isValidJwtKey(SUPABASE_ANON_KEY)) {
+  console.error('🚨 ERREUR: Format SUPABASE_ANON_KEY invalide (doit être une clé JWT valide)');
 }
 
-// ✅ Création du client sécurisé
-export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_ANON_KEY, {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true
-  },
-  // 🔐 Configuration sécurisée
-  global: {
-    headers: {
-      'X-Client-Info': 'maliba-shop@1.0.0'
-    }
-  }
-});
+// ✅ Création du client sécurisé (seulement si les variables sont présentes)
+export const supabase = SUPABASE_URL && SUPABASE_ANON_KEY 
+  ? createClient<Database>(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true
+      },
+      // 🔐 Configuration sécurisée
+      global: {
+        headers: {
+          'X-Client-Info': 'maliba-shop@1.0.0'
+        }
+      }
+    })
+  : null;
 
 // 🔍 Log de débogage (uniquement en développement - première initialisation)
-if (import.meta.env.DEV && !window.__SUPABASE_INITIALIZED__) {
+if (import.meta.env.DEV && typeof window !== 'undefined' && !window.__SUPABASE_INITIALIZED__) {
   console.log('🔐 Supabase client initialisé:', {
     url: SUPABASE_URL,
     keyPrefix: '***HIDDEN***',

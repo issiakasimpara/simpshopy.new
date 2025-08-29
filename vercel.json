@@ -1,6 +1,6 @@
 {
-  "buildCommand": "bun run build",
-  "installCommand": "bun install",
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
   "framework": "vite",
   "outputDirectory": "dist",
   "rewrites": [
@@ -39,5 +39,13 @@
         }
       ]
     }
-  ]
+  ],
+  "functions": {
+    "src/pages/api/**/*.ts": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "env": {
+    "NODE_ENV": "production"
+  }
 } 
