@@ -4,10 +4,19 @@ import ReactDOM from 'react-dom'
 import App from './App.tsx'
 import './index.css'
 import { ThemeProvider } from './contexts/ThemeContext'
+import ErrorBoundary from './components/ErrorBoundary'
+import DiagnosticWrapper from './components/DiagnosticWrapper'
 
 // 🔍 LOGS DE DIAGNOSTIC - DÉBUT
 console.log('🚀 [DEBUG] main.tsx - Démarrage de l\'application');
 console.log('🔍 [DEBUG] Environment:', import.meta.env.MODE);
+
+// 🔍 VÉRIFICATION DES VARIABLES D'ENVIRONNEMENT
+console.log('🔍 [DEBUG] Vérification des variables d\'environnement...');
+console.log('🔍 [DEBUG] VITE_SUPABASE_URL:', import.meta.env.VITE_SUPABASE_URL ? 'PRESENT' : 'MISSING');
+console.log('🔍 [DEBUG] VITE_SUPABASE_ANON_KEY:', import.meta.env.VITE_SUPABASE_ANON_KEY ? 'PRESENT' : 'MISSING');
+console.log('🔍 [DEBUG] NODE_ENV:', import.meta.env.NODE_ENV);
+console.log('🔍 [DEBUG] BASE_URL:', import.meta.env.BASE_URL);
 
 // 🔧 DÉSACTIVER LES CONCURRENT FEATURES (Résout unstable_scheduleCallback)
 // Cette configuration évite l'erreur React 18 Concurrent Features
@@ -138,9 +147,13 @@ console.log('✅ [DEBUG] Root element trouvé:', rootElement);
 
 console.log('🎨 [DEBUG] Rendu de l\'application...');
 ReactDOM.render(
-  <ThemeProvider>
-    <App />
-  </ThemeProvider>,
+  <DiagnosticWrapper>
+    <ErrorBoundary>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </ErrorBoundary>
+  </DiagnosticWrapper>,
   rootElement
 )
 console.log('✅ [DEBUG] Application rendue avec succès');
