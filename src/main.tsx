@@ -5,6 +5,22 @@ import App from './App.tsx'
 import './index.css'
 import { ThemeProvider } from './contexts/ThemeContext'
 
+// 🔧 DÉSACTIVER LES CONCURRENT FEATURES GLOBALEMENT
+if (typeof window !== 'undefined') {
+  // Désactiver les Concurrent Features au niveau global
+  (window as any).__REACT_DEVTOOLS_GLOBAL_HOOK__ = {
+    ...(window as any).__REACT_DEVTOOLS_GLOBAL_HOOK__,
+    supportsFiber: false,
+    supportsConcurrentMode: false,
+    supportsConcurrentFeatures: false
+  };
+  
+  // Forcer React à utiliser le mode stable
+  (window as any).__REACT_18_STABLE_MODE__ = true;
+  
+  console.log('🔧 [DEBUG] Concurrent Features désactivées globalement');
+}
+
 // 🔍 LOGS DE DIAGNOSTIC - DÉBUT
 console.log('🚀 [DEBUG] main.tsx - Démarrage de l\'application');
 console.log('🔍 [DEBUG] Environment:', import.meta.env.MODE);

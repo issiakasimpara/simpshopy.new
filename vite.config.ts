@@ -13,7 +13,16 @@ export default defineConfig(({ mode }) => ({
       // 🔧 Configuration React pour éviter unstable_scheduleCallback
       jsxRuntime: 'automatic',
       // Désactiver les Concurrent Features
-      fastRefresh: true
+      fastRefresh: true,
+      // Forcer une version stable de React
+      babel: {
+        plugins: [
+          ['@babel/plugin-transform-react-jsx', {
+            runtime: 'automatic',
+            importSource: 'react'
+          }]
+        ]
+      }
     }),
   ],
   resolve: {
@@ -193,5 +202,19 @@ export default defineConfig(({ mode }) => ({
       '@supabase/supabase-js',
       '@tanstack/react-query',
     ],
+    // Forcer l'utilisation de versions stables
+    force: true
+  },
+  // Configuration pour éviter les Concurrent Features
+  define: {
+    __DEV__: mode === 'development',
+    // Désactiver les Concurrent Features
+    __EXPERIMENTAL__: false,
+    __PROFILE__: false,
+    __UMD__: false,
+    __VARIANT__: false,
+    // Forcer React à utiliser le mode stable
+    'process.env.NODE_ENV': JSON.stringify(mode),
+    'process.env.REACT_APP_ENABLE_CONCURRENT_FEATURES': JSON.stringify('false'),
   },
 }));
