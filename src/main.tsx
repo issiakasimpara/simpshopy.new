@@ -149,9 +149,7 @@ console.log('🎨 [DEBUG] Rendu de l\'application...');
 ReactDOM.render(
   <DiagnosticWrapper>
     <ErrorBoundary>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
+      <App />
     </ErrorBoundary>
   </DiagnosticWrapper>,
   rootElement
