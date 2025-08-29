@@ -3,11 +3,6 @@
   "installCommand": "npm install --force",
   "framework": "vite",
   "outputDirectory": "dist",
-  "functions": {
-    "app/api/**/*.ts": {
-      "runtime": "nodejs18.x"
-    }
-  },
   "rewrites": [
     {
       "source": "/(.*)",
