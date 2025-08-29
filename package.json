@@ -55,6 +55,7 @@
     "lucide-react": "^0.303.0",
     "next-themes": "^0.2.1",
     "@heroicons/react": "^2.0.18",
+    "papaparse": "^5.4.1",
     "postcss": "^8.4.32",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
