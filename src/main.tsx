@@ -136,13 +136,9 @@ console.log('🔧 [DEBUG] Configuration de createRoot...');
 const rootElement = document.getElementById('root')!;
 console.log('✅ [DEBUG] Root element trouvé:', rootElement);
 
-// Utiliser createRoot avec des options compatibles
-console.log('🔧 [DEBUG] Création du root avec options...');
-const root = createRoot(rootElement, {
-  // Désactiver les Concurrent Features
-  unstable_concurrentUpdatesByDefault: false,
-  unstable_transitionCallbacks: false
-});
+// Utiliser createRoot sans options pour éviter les problèmes
+console.log('🔧 [DEBUG] Création du root simple...');
+const root = createRoot(rootElement);
 console.log('✅ [DEBUG] Root créé avec succès');
 
 console.log('🎨 [DEBUG] Rendu de l\'application...');
