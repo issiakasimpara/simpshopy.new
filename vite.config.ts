@@ -10,9 +10,8 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react({
-      // 🔧 Configuration React pour éviter unstable_scheduleCallback
+      // 🔧 Configuration React 17
       jsxRuntime: 'automatic',
-      // Désactiver les Concurrent Features
       fastRefresh: true
     }),
   ],

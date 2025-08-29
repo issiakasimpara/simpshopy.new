@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 import App from './App.tsx'
 import './index.css'
 import { ThemeProvider } from './contexts/ThemeContext'
@@ -137,7 +137,7 @@ const rootElement = document.getElementById('root')!;
 console.log('✅ [DEBUG] Root element trouvé:', rootElement);
 
 console.log('🎨 [DEBUG] Rendu de l\'application...');
-render(
+ReactDOM.render(
   <ThemeProvider>
     <App />
   </ThemeProvider>,
