@@ -27,12 +27,7 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       external: (id) => {
-        // Exclure les modules React qui causent des problèmes
-        if (id.includes('unstable_scheduleCallback') || 
-            id.includes('unstable_') ||
-            id.includes('concurrent')) {
-          return true;
-        }
+        // Pas d'exclusions nécessaires avec React 17
         return false;
       },
       output: {
@@ -204,18 +199,12 @@ export default defineConfig(({ mode }) => ({
     ],
     // Forcer l'utilisation de versions stables
     force: true,
-    // Exclure les features expérimentales
-    exclude: ['unstable_scheduleCallback', 'concurrent']
+    // Pas d'exclusions nécessaires avec React 17
+    exclude: []
   },
-  // Configuration pour éviter les Concurrent Features
+  // Configuration React 17 (stable)
   define: {
     __DEV__: mode === 'development',
-    // Forcer React à utiliser le mode stable
     'process.env.NODE_ENV': JSON.stringify(mode),
-    'process.env.REACT_APP_ENABLE_CONCURRENT_FEATURES': JSON.stringify('false'),
-    // Désactiver les Concurrent Features
-    '__REACT_CONCURRENT_MODE__': false,
-    '__REACT_STRICT_MODE__': false,
-    '__REACT_LEGACY_MODE__': true,
   },
 }));
