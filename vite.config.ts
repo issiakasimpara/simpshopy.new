@@ -26,6 +26,15 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     rollupOptions: {
+      external: (id) => {
+        // Exclure les modules React qui causent des problèmes
+        if (id.includes('unstable_scheduleCallback') || 
+            id.includes('unstable_') ||
+            id.includes('concurrent')) {
+          return true;
+        }
+        return false;
+      },
       output: {
         manualChunks: (id) => {
           // 🚀 CODE SPLITTING INTELLIGENT
@@ -194,7 +203,9 @@ export default defineConfig(({ mode }) => ({
       '@tanstack/react-query',
     ],
     // Forcer l'utilisation de versions stables
-    force: true
+    force: true,
+    // Exclure les features expérimentales
+    exclude: ['unstable_scheduleCallback', 'concurrent']
   },
   // Configuration pour éviter les Concurrent Features
   define: {
