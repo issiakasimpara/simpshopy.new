@@ -24,6 +24,8 @@ export default defineConfig(({ mode }) => ({
     postcss: './postcss.config.cjs'
   },
   build: {
+    // Forcer le nettoyage du cache
+    emptyOutDir: true,
     rollupOptions: {
       external: (id) => {
         // Pas d'exclusions nécessaires avec React 17
@@ -187,20 +189,24 @@ export default defineConfig(({ mode }) => ({
     },
     // Code splitting automatique
   },
-  // Optimisations de développement
-  optimizeDeps: {
-    include: [
-      'react',
-      'react-dom',
-      'react-router-dom',
-      '@supabase/supabase-js',
-      '@tanstack/react-query',
-    ],
-    // Forcer l'utilisation de versions stables
-    force: true,
-    // Pas d'exclusions nécessaires avec React 17
-    exclude: []
-  },
+      // Optimisations de développement
+    optimizeDeps: {
+      include: [
+        'react',
+        'react-dom',
+        'react-router-dom',
+        '@supabase/supabase-js',
+        '@tanstack/react-query',
+      ],
+      // Forcer l'utilisation de versions stables
+      force: true,
+      // Pas d'exclusions nécessaires avec React 17
+      exclude: [],
+      // Forcer le nettoyage du cache
+      esbuildOptions: {
+        target: 'es2020'
+      }
+    },
   // Configuration React 17 (stable)
   define: {
     __DEV__: mode === 'development',

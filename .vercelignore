@@ -1,0 +1,6 @@
+# Forcer Vercel à ignorer le cache et reconstruire
+node_modules
+dist
+.vercel
+.cache
+*.log
