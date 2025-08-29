@@ -1,5 +1,4 @@
 
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
@@ -17,6 +16,13 @@ if (typeof window !== 'undefined') {
   
   // Forcer React à utiliser le mode stable
   (window as any).__REACT_18_STABLE_MODE__ = true;
+  
+  // Désactiver les Concurrent Features dans React
+  (window as any).__REACT_CONCURRENT_MODE__ = false;
+  (window as any).__REACT_STRICT_MODE__ = false;
+  
+  // Forcer l'utilisation du mode legacy
+  (window as any).__REACT_LEGACY_MODE__ = true;
   
   console.log('🔧 [DEBUG] Concurrent Features désactivées globalement');
 }
@@ -159,11 +165,9 @@ console.log('✅ [DEBUG] Root créé avec succès');
 
 console.log('🎨 [DEBUG] Rendu de l\'application...');
 root.render(
-  <StrictMode>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
-  </StrictMode>,
+  <ThemeProvider>
+    <App />
+  </ThemeProvider>
 )
 console.log('✅ [DEBUG] Application rendue avec succès');
 console.log('🎯 [DEBUG] main.tsx - Initialisation terminée');

@@ -202,5 +202,9 @@ export default defineConfig(({ mode }) => ({
     // Forcer React à utiliser le mode stable
     'process.env.NODE_ENV': JSON.stringify(mode),
     'process.env.REACT_APP_ENABLE_CONCURRENT_FEATURES': JSON.stringify('false'),
+    // Désactiver les Concurrent Features
+    '__REACT_CONCURRENT_MODE__': false,
+    '__REACT_STRICT_MODE__': false,
+    '__REACT_LEGACY_MODE__': true,
   },
 }));
